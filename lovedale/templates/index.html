@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts --> 
+<!-- <link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/> -->
+<!-- MDB -->
+<!-- <link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+rel="stylesheet"
+/>  -->
+    <title>Document</title>
+
+    <style>
+      html,body{
+  margin:0px;
+  height:100%;
+}
+.bg_heart{
+  position:relative;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+ overflow:hidden;
+  background-image:url("https://i.pinimg.com/originals/51/d8/37/51d8374126446d495348b6032202126f.jpg");
+  background-size:100% 100%;
+  z-index:-1;
+}
+
+.container-fluid{
+  position:absolute;
+  top:0;
+  
+  height:100%;
+  width:100%;
+  text-align:center;
+  color:white;
+  font-family:cursive;
+}
+
+
+.heart{
+  position:absolute;
+  top:-50%;
+  transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+  -moz-transform:rotate(-45deg);
+  -m-transform:rotate(-45deg);
+}
+.heart:before{
+  position:absolute;
+  top:-50%;
+  left:0;
+  display:block;
+  content:"";
+  width:100%;
+  height:100%;
+  background:inherit;
+  border-radius:100%;
+}
+.heart:after{
+  position:absolute;
+  top:0;
+  right:-50%;
+  display:block;
+  content:"";
+  width:100%;
+  height:100%;
+  background:inherit;
+  border-radius:100%;
+}
+
+@keyframes love {
+  0%{top:110%}
+}
+@-webkit-keyframes love {
+  0%{top:110%}
+}
+@-moz-keyframes love {
+  0%{top:110%}
+}
+@-ms-keyframes love {
+  0%{top:110%}
+}
+
+
+.navbar-light .navbar-nav .nav-link {
+  color: #000;
+}
+    </style>
+</head>
+<body>
+
+   <!-- Navbar -->
+<!-- <nav class="navbar navbar-expand-lg fixed-top bg-light navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="#"
+      ><img
+        id="MDB-logo"
+        src="https://mdbcdn.b-cdn.net/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+        alt="MDB Logo"
+        draggable="false"
+        height="30"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent1"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="#!"><i class="fas fa-plus-circle pe-2"></i>Post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="#!"><i class="fas fa-bell pe-2"></i>Alerts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="#!"><i class="fas fa-heart pe-2"></i>Trips</a>
+        </li>
+        <li class="nav-item ms-3">
+          <a class="btn btn-black btn-rounded" href="#!">Sign in</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+ 
+
+
+  <div class="bg_heart">
+    
+  </div>
+  
+  <div class="container-fluid">
+    
+    
+    
+   
+  <div class="mt-5" style="height: 450px;">
+    <h2 id="text1"></h2>
+  </div>  
+  
+  
+  
+  <div>
+    <div>
+      <div>
+        <a class="btn btn-success" href="{% url 'accounts:register' %}">Register</a>
+        <a class="btn btn-primary" href="{% url 'accounts:login' %}">Login</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
+    
+    
+
+
+    {% for msg in messages %}
+
+<div id="message" style="position: fixed;bottom: 50px;right: 0;width: auto;">
+  <div class="alert  alert-dismissible " style="margin: 0 auto;background-color: #ffffff;border-color: #00000087;border-width: 2px;box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);">
+    <i class="fa-solid fa-circle-check" style="color: #05eb09;"></i>
+    <span style="color: #000000;font-size: 19px;padding-left: 10px;">{{ msg }}</span> 
+  </div>
+</div>
+{% endfor %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var alertBox = document.querySelector("#message");
+  
+        setTimeout(function () {
+            alertBox.style.animation = "fadeOut 1.0s ease-out";
+            setTimeout(function () {
+                alertBox.style.display = "none";
+            }, 500);
+        }, 7000);
+    });
+  </script>
+
+  <script>
+    
+var love = setInterval(function(){
+  var r_num = Math.floor(Math.random() * 40) + 1;
+  var r_size = Math.floor(Math.random() * 65) + 10;
+  var r_left = Math.floor(Math.random() * 100) + 1;
+  var r_bg = Math.floor(Math.random() * 25) + 100;
+  var r_time = Math.floor(Math.random() * 5) + 5;
+  $('.bg_heart').append("<div class='heart' style='width:"+r_size+"px;height:"+r_size+"px;left:"+r_left+"%;background:rgba(255,"+(r_bg-25)+","+r_bg+",1);-webkit-animation:love "+r_time+"s ease;-moz-animation:love "+r_time+"s ease;-ms-animation:love "+r_time+"s ease;animation:love "+r_time+"s ease'></div>");
+  
+  $('.bg_heart').append("<div class='heart' style='width:"+(r_size-10)+"px;height:"+(r_size-10)+"px;left:"+(r_left+r_num)+"%;background:rgba(255,"+(r_bg-25)+","+(r_bg+25)+",1);-webkit-animation:love "+(r_time+5)+"s ease;-moz-animation:love "+(r_time+5)+"s ease;-ms-animation:love "+(r_time+5)+"s ease;animation:love "+(r_time+5)+"s ease'></div>");
+  
+  
+},500);
+
+var i = 0;
+var txt1 = "Hi SweetHeart.....!  <<               Now I wan't to say something special to you. <<<                So , Please read everything carefully...!                                                                           > When I saw you for the first time < You seems something Special to me.  <<                  As the days goes < you get closer to me....! <<                           I don't know the reason why your thoughts always resonates inside my mind...!                                                     > Everything about you is always intresting for me...!                     << I am somewhat nervous Because I haven't said these words to anyone and I won't say to anyone in future...!                                                     > I Love my Parents so much than anything else in this world....!                    << Now You are the only person  whom I love equally with my parents....!                                                             >I Love U <SweetHeart.....! |                  <<<< Give me One chance to Prove my Love ...!";
+var speed = 50;
+typeWriter();
+function typeWriter() {
+  if (i < txt1.length) {        
+     if(txt1.charAt(i)=='<')
+      document.getElementById("text1").innerHTML += '</br>'
+    else if(txt1.charAt(i)=='>')
+      document.getElementById("text1").innerHTML = ''
+    else if(txt1.charAt(i)=='|')
+      {
+        $(".bg_heart").css("background-image","url('https://i.pinimg.com/originals/51/d8/37/51d8374126446d495348b6032202126f.jpg')");
+
+      }
+    else
+      document.getElementById("text1").innerHTML += txt1.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+  </script>
+    
+</body>
+</html>

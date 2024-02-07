@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            align-items: center;
+            
+            margin: 0 auto;
+            padding: 20px;
+            
+        }
+        .card {
+            margin-left: 10%;
+            margin-right: 10%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+
+            
+            <p>Dear user {{uname}},</p>
+
+            <p>Thank you for registering with us. To complete your registration and activate your account, please click the button below:</p>
+
+            <a class="btn" href="http://127.0.0.1:8000/accounts/activate/{{uid}}/{{ttoken}}">Activate</a>
+
+            <div style="margin-top: 20px;">
+                <p>If the button above doesn't work, you can also activate your account by copying and pasting the following link into your browser:
+                <a href="http://127.0.0.1:8000/accounts/activate/{{uid}}/{{ttoken}}">link</a></p>
+            </div>
+        </div>
+        
+        </div>
+
+        <div style="margin-top: 20px;">
+            <p>Please review the information provided and take the necessary steps.</p>
+            <p>Best regards,<br>Your Company Name</p>
+        </div><span>note this is not a official site</span>
+    </div>
+
+</body>
+</html>
