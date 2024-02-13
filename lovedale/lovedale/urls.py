@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('lovers.urls')),
     path('', include('accounts.urls')),
-    path('dj-admin/', include('customadmin.urls')),
+    # path('dj-admin/', include('customadmin.urls')),
 ]
 
 if settings.DEBUG:

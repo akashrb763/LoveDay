@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            align-items: center;
+            
+            margin: 0 auto;
+            padding: 20px;
+            
+        }
+        .card {
+            margin-left: 10%;
+            margin-right: 10%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+
+            
+            <p>user {{uname}},</p>
+
+            <p>The user requested to verify his/her account bellow are the details</p>
+
+            <li>
+                <ul>user id : {{u_id}}</ul>
+                <ul>username : {{u_username}}</ul>
+                <ul>age : {{u_age}}</ul>
+                <ul>gender : {{u_gender}}</ul>
+                <ul>phone number : {{u_phone_number}}</ul>
+                <ul>email id : {{u_email}}</ul>
+                
+            </li>
+
+
+
+            
+        </div>
+        
+        </div>
+
+        <div style="margin-top: 20px;">
+            <p>Please review the information provided and take the necessary steps.</p>
+            <p>Best regards,<br>Your Company Name</p>
+        </div><span>note this is not a official site</span>
+    </div>
+
+</body>
+</html>

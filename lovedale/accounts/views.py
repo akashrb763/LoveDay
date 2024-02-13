@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from lovers.forms import CustomUserCreationForm, LoginForm
 from lovers.models import CustomUser
@@ -16,6 +17,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes,force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
+
+from cryptography.fernet import Fernet
+import os
+
 # Create your views here.
 
 
@@ -32,6 +37,9 @@ def generate_activation_token(user):
 def token_is_valid(user, token):
     return default_token_generator.check_token(user, token)
 def user_register(request):
+    if request.user.is_authenticated:
+        
+        return redirect('lovers:profile')
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         print("test")
@@ -165,6 +173,9 @@ def user_logout(request):
     return redirect('lovers:index')
 
 def user_login(request):
+    if request.user.is_authenticated:
+        
+        return redirect('lovers:profile')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -191,3 +202,46 @@ def user_login(request):
 
 def user_profile(request):
     return render(render,"user_propose.html")
+
+
+def profile_update(request):
+    user=request.user
+    if request.method == 'POST':
+        name=request.POST.get('name')
+        # username=request.POST.get('username')
+        age=request.POST.get('age')
+        phone_number=request.POST.get('phone_number')
+        email=request.POST.get('email')
+        # gender=request.POST.get('gender')
+        place=request.POST.get('place')
+        education=request.POST.get('education')
+
+
+
+
+        if user.name != request.POST.get('name'):
+            user.name=name
+            user.save()
+        # if user.username != request.POST.get('username'):
+        #     user.username=username
+        if user.age != request.POST.get('age'):
+            user.age=age
+            user.save()
+        if user.phone_number != request.POST.get('phone_number'):
+            user.phone_number=phone_number
+            user.save()
+        if user.email != request.POST.get('email'):
+            user.email=email
+            user.save()
+        # if user.gender != request.POST.get('gender'):
+        #     user.gender=gender
+        if user.place != request.POST.get('place'):
+            user.place=place
+            user.save()
+        if user.education != request.POST.get('education'):
+            user.education=education
+            user.save()
+
+        
+
+    return redirect('lovers:profile')

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser,UserPropose
 
 class CustomUserAdmin(UserAdmin):
     # Define the fields to display in the admin interface
@@ -13,7 +13,7 @@ class CustomUserAdmin(UserAdmin):
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'registered_date')}),
         ('Additional Information', {'fields': ('age', 'status', 'verified', 'terms_and_conditions',
-                                               'profile_picture', 'cover_picture', 'bio', 'work', 'education', 'place')})
+                                               'profile_picture', 'cover_picture', 'bio', 'work', 'education', 'place' , 'verify_paid')})
     )
     # Define the fields that can be used for adding users
     add_fieldsets = (
@@ -25,3 +25,5 @@ class CustomUserAdmin(UserAdmin):
 
 # Register your CustomUser model with the admin site using the CustomUserAdmin class
 admin.site.register(CustomUser, CustomUserAdmin)
+
+admin.site.register(UserPropose)

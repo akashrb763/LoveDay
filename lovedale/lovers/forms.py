@@ -12,3 +12,4 @@ class CustomUserCreationForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username_or_phone = forms.CharField(label="Username or Phone Number")
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
+

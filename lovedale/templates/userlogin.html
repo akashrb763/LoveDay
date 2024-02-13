@@ -38,7 +38,7 @@ rel="stylesheet"
   width:100%;
   height:100%;
  overflow:hidden;
-  background-image:url("{% static 'assets/img/register_bg.jpg' %}");
+  background-image:url("{% static 'assets/img/bg-3.jpg' %}");
   background-size:100% 100%;
   z-index:-1;
 }
@@ -103,6 +103,13 @@ rel="stylesheet"
 .navbar-light .navbar-nav .nav-link {
   color: #000;
 }
+
+/* for notification */
+@keyframes fadeOut {
+        from { opacity: 3; }
+        to { opacity: -1; }
+        }
+
     </style>
 </head>
 <body>
@@ -160,7 +167,7 @@ rel="stylesheet"
 
     <div id="message" style="position: fixed;bottom: 50px;right: 0;width: auto;">
       <div class="alert  alert-dismissible " style="margin: 0 auto;background-color: #ffffff;border-color: #00000087;border-width: 2px;box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);">
-        <i class="fa-solid fa-circle-xmark" style="color: #eb0505;"></i>
+        <!-- <i class="fa-solid fa-circle-xmark" style="color: #eb0505;"></i> -->
         <span style="color: #000000;font-size: 19px;padding-left: 10px;">{{ msg }}</span> 
       </div>
     </div>
@@ -168,7 +175,7 @@ rel="stylesheet"
     <div class="container mt-4">
       <div class="row">
         <div class="col-1">
-          <i class="fa-solid fa-circle-arrow-left" style="font-size: 30px;"></i>
+          <a href="/"><i class="fa-solid fa-circle-arrow-left" style="font-size: 30px;"></i></a>
         </div>
         
       </div>
@@ -222,7 +229,7 @@ rel="stylesheet"
       <div class="container  ">
         <div class="row justify-content-center align-items-center ">
           <div class="col-md-4">
-            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;opacity: 0.9;">
               <div class="card-body p-4 p-md-5">
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Login</h3>
                 
@@ -285,7 +292,7 @@ rel="stylesheet"
   
     
     
-{{user.username}}
+
 
    
 </div>

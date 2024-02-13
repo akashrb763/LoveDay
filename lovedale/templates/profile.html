@@ -13,6 +13,15 @@
     <!-- <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css'> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <title>Profile</title>
+
+    <style>
+      /* for notification */
+      @keyframes fadeOut {
+        from { opacity: 3; }
+        to { opacity: -1; }
+        }
+
+    </style>
 </head>
 <body>
     
@@ -44,10 +53,345 @@
                           
                           <p class="text-secondary mb-1">@{{ user.username }} {% if user.verified %}<i class="fa-solid fa-circle-check" style="color: #3b79ff;"></i>{% else %}<span>(Not Verified)</span> {% endif %}</p>
                           <p class="text-muted font-size-sm">{{ user.gender }}</p>
-                          <button class="btn btn-warning">Propose</button>
-                          {% if user.verified != True %}
-                          <button class="btn btn-outline-primary">verify</button>
+                          {% if count_generater %}<p class="text-muted font-size-sm">your committed with {{count_generater}}</p> {% endif %}
+
+
+                          {% if user.verified == False %}
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#Generate">Generate</button>
+                          <div class="modal fade" id="Generate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog modal-notify  modal-md" role="document">
+                            <!--Content-->
+                            <div class="modal-content">
+                              <!--Header-->
+                              <div class="modal-header " >
+                                <p class=" lead " >Relationship Agreement</p>
+                       
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true" style="color: #fc0000;" class="white-text">&times;</span>
+                                </button>
+                              </div>
+                       
+                              <!--Body-->
+                              <div class="modal-body">
+                                <div class="text-center">
+                                  
+                                  
+                                      <!-- <div class="form-outline ">
+                                          <label class="form-label" for="temp_img">Template Image:</label>
+                                          <input type="file" name="temp_img" id="temp_img" class="form-control" ><br>
+                                      </div> -->
+
+                                      <!-- <div class="form-outline">
+                                          <label for="temp_file" class="form-label">Template File:</label>
+                                          <input type="file" id="temp_file" name="temp_file" class="form-control" ><br>
+                                      </div> -->
+                                      
+                                      <div class="row">
+                                        <div class="form-outline col-lg-12 mb-1 mt-1" >
+                                          <div class="row">      
+                                            <div class="p-3" >
+                                              
+                                            
+                                              <p>You Need To Verify First To Generate Relationship Agreement</p>
+                                            </div>
+                                          </div>  
+                                        </div> 
+                                      </div> 
+                                      
+                                        <!-- <div class=" mb-0 mt-5" >
+                                          <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_NYTq57hCRNWgZJ" async> </script> </form> 
+
+                                        </div> -->
+                                        <div class="p-2 mt-0 " >
+                                          <input type="button" id="submitBtn" class="btn btn-primary  " style="width: 160px;" value="ok" class="close" data-dismiss="modal" aria-label="Close">
+
+                                        </div>
+                                       
+                                      
+                                      
+                                  
+                                </div>
+                              </div>
+                              </div>
+                              </div>
+                          </div>
+                          {% else %}
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#Generate">Generate</button>
+                          <div class="modal fade" id="Generate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog modal-notify  modal-md" role="document">
+                            <!--Content-->
+                            <div class="modal-content">
+                              <!--Header-->
+                              <div class="modal-header " >
+                                <p class=" lead " >Relationship Agreement</p>
+                       
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true" style="color: #fc0000;" class="white-text">&times;</span>
+                                </button>
+                              </div>
+                       
+                              <!--Body-->
+                              <div class="modal-body">
+                                <div class="text-center">
+                                  
+                                  
+                                      <!-- <div class="form-outline ">
+                                          <label class="form-label" for="temp_img">Template Image:</label>
+                                          <input type="file" name="temp_img" id="temp_img" class="form-control" ><br>
+                                      </div> -->
+
+                                      <!-- <div class="form-outline">
+                                          <label for="temp_file" class="form-label">Template File:</label>
+                                          <input type="file" id="temp_file" name="temp_file" class="form-control" ><br>
+                                      </div> -->
+                                      <form method="post" action="{% url 'lovers:relationship_agreement_to_pdf'  %}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                      
+                                      
+                                      <div class="row">
+                                        <div class="form-outline col-lg-12 mb-1 mt-1" >
+                                                
+                                            <div class="row"> 
+                                              <div class="mt-4">
+                                                <div class="row">
+                                                  <div class="col-md-4" >
+                                                    <label for="name" class="form-label">Select</label>
+                                                  </div>
+                                                  <div class="col-md-8" >
+                                                    <select class="form-control" name="partner">
+                                                      {% for com in generater %}
+                                                          {% if request.user.username != com.party_a %}
+                                                              <option  value="{{ com.party_a }}">{{ com.party_a }}</option>
+                                                          {% else %}
+                                                              <option  value="{{ com.party_b }}">{{ com.party_b }}</option>
+                                                          {% endif %}
+                                                      {% endfor %}
+                                                  </select>
+                                                  </div>
+
+                                                </div>
+                                                <div class="mt-4">
+                                                  <div class="row">
+                                                    <div class="col-md-4" >
+                                                      <label for="name" class="form-label">Your Signature</label>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                      <input type="file" class="form-control" id="yourSignature" name="yourSignature" accept="Image/*" required>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+
+                                                <div class="mt-4">
+                                                  <div class="row">
+                                                    <div class="col-md-4" >
+                                                      <label for="name" class="form-label">Partner's Signature</label>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                      <input type="file" class="form-control" id="partnersSignature" name="partnersSignature" accept="Image/*" required>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                              </div>     
+                                              
+
+                                              
+                                            </div>
+                                            
+                                        </div> 
+                                      </div> 
+                                      <span class="p-4">We are not save the uploaded files from here</span>
+                                      
+                                        
+                                        <div class="p-2 mt-0 " >
+                                          <input type="submit" id="submitBtn" class="btn btn-danger  " style="width: 160px;" value="Generate" >
+
+                                        </div>
+                                       
+                                      
+                                      
+                                      </form>
+                                </div>
+                              </div>
+                              </div>
+                              </div>
+                          </div>
+
                           {% endif %}
+
+
+
+                          
+                          <button class="btn btn-warning" data-toggle="modal" data-target="#Propose">Propose</button>
+                          
+                              <div class="modal fade" id="Propose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                              aria-hidden="true">
+                              <div class="modal-dialog modal-notify  modal-md" role="document">
+                                <!--Content-->
+                                <div class="modal-content">
+                                  <!--Header-->
+                                  <div class="modal-header " >
+                                    <p class=" lead " >Proposel</p>
+                          
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true" style="color: #fc0000;" class="white-text">&times;</span>
+                                    </button>
+                                  </div>
+                          
+                                  <!--Body-->
+                                  <div class="modal-body">
+                                    <div class="text-center">
+                                      
+                                      <form action="{% url 'lovers:propose' %}" method="post" enctype="multipart/form-data">
+                                          {% csrf_token %}
+                                          
+                                          
+                                          <div class="row">
+                                            <div class="form-outline col-lg-12 mb-1 mt-1" >
+                                              <div class="row">      
+                                                <div class="col-md-4" >
+                                                  <label for="name" class="form-label">username</label>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                  <input type="text" class="form-control" id="username" name="username" required>
+                                                </div>
+                                              </div>  
+                                            </div> 
+                                          </div> 
+                                          <div>
+                                            <div>
+                                              <span style="font-size: 13px;">After receiving a proposal, the recipient can choose to accept it from their account.</span>
+                                            </div>
+                                          </div>  
+                                          <input type="submit" id="submitBtn" class="btn btn-warning mt-5" value="Propose">
+                                          
+                                      </form>
+                                    </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                              </div>
+
+                          
+                            {% if user.verify_paid == True %}
+                              {% if user.verified != True %}
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#verify">verify</button>
+                              <div class="modal fade" id="verify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                              aria-hidden="true">
+                              <div class="modal-dialog modal-notify  modal-md" role="document">
+                                <!--Content-->
+                                <div class="modal-content">
+                                  <!--Header-->
+                                  <div class="modal-header " >
+                                    <p class=" lead " >Identity Verification</p>
+                          
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true" style="color: #fc0000;" class="white-text">&times;</span>
+                                    </button>
+                                  </div>
+                          
+                                  <!--Body-->
+                                  <div class="modal-body">
+                                    <div class="text-center">
+                                      
+                                      <form action="{% url 'lovers:user_verify' %}" method="post" enctype="multipart/form-data">
+                                          {% csrf_token %}
+                                          <!-- <div class="form-outline ">
+                                              <label class="form-label" for="temp_img">Template Image:</label>
+                                              <input type="file" name="temp_img" id="temp_img" class="form-control" ><br>
+                                          </div> -->
+
+                                          <!-- <div class="form-outline">
+                                              <label for="temp_file" class="form-label">Template File:</label>
+                                              <input type="file" id="temp_file" name="temp_file" class="form-control" ><br>
+                                          </div> -->
+                                          
+                                          <div class="row">
+                                            <div class="form-outline col-lg-12 mb-1 mt-1" >
+                                              <div class="row">      
+                                                <div class="col-md-4" >
+                                                  <label for="name" class="form-label">Upload ID</label>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                  <input type="file" class="form-control" id="identity" name="identity" accept="Image/*" required>
+                                                </div>
+                                              </div>  
+                                            </div> 
+                                          </div>   
+                                          <input type="submit" id="submitBtn" class="btn btn-success mt-5" value="Save">
+                                          
+                                      </form>
+                                    </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                              </div>
+                              {% endif %}
+                              {% else %}
+
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#verify">verify</button>
+                              <div class="modal fade" id="verify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                              aria-hidden="true">
+                              <div class="modal-dialog modal-notify  modal-md" role="document">
+                                <!--Content-->
+                                <div class="modal-content">
+                                  <!--Header-->
+                                  <div class="modal-header " >
+                                    <p class=" lead " >Payment</p>
+                          
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true" style="color: #fc0000;" class="white-text">&times;</span>
+                                    </button>
+                                  </div>
+                          
+                                  <!--Body-->
+                                  <div class="modal-body">
+                                    <div class="text-center">
+                                      
+                                      
+                                          <!-- <div class="form-outline ">
+                                              <label class="form-label" for="temp_img">Template Image:</label>
+                                              <input type="file" name="temp_img" id="temp_img" class="form-control" ><br>
+                                          </div> -->
+
+                                          <!-- <div class="form-outline">
+                                              <label for="temp_file" class="form-label">Template File:</label>
+                                              <input type="file" id="temp_file" name="temp_file" class="form-control" ><br>
+                                          </div> -->
+                                          
+                                          <div class="row">
+                                            <div class="form-outline col-lg-12 mb-1 mt-1" >
+                                              <div class="row">      
+                                                <div class="p-3" >
+                                                  
+                                                
+                                                  <p>You need to pay the amount for your Verification</p>
+                                                </div>
+                                              </div>  
+                                            </div> 
+                                          </div> 
+                                          
+                                            <div class=" mb-0 mt-5" >
+                                              <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_NYTq57hCRNWgZJ" async> </script> </form> 
+
+                                            </div>
+                                            <div class="p-2 mt-0 " >
+                                              <input type="button" id="submitBtn" class="btn btn-danger  " style="width: 160px;" value="Cancel" class="close" data-dismiss="modal" aria-label="Close">
+
+                                            </div>
+                                          
+                                          
+                                          
+                                      
+                                    </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                              </div>
+                              {% endif %}
                         </div>
                       </div>
                     </div>
@@ -73,7 +417,7 @@
                   </div>
                   {% endif %}
 
-                  <div class="card mt-3">
+                  <!-- <div class="card mt-3">
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
@@ -96,7 +440,7 @@
                         <span class="text-secondary">bootdey</span>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
 
 
                   
@@ -201,7 +545,7 @@
                       <hr>
                       <div class="row">
                         <div class="col-sm-12">
-                          <a class="btn btn-info "  data-toggle="modal" data-target="#addtable">Edit</a>
+                          <a class="btn btn-primary "  data-toggle="modal" data-target="#addtable">Edit</a>
                           <!-- <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a> -->
                           <div class="modal fade" id="addtable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                           aria-hidden="true">
@@ -210,7 +554,7 @@
                             <div class="modal-content">
                               <!--Header-->
                               <div class="modal-header " >
-                                <p class=" lead " >Profile Edits</p>
+                                <p class=" lead " >Profile Details</p>
                        
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true" style="color: #fc0000;" class="white-text">&times;</span>
@@ -221,7 +565,7 @@
                               <div class="modal-body">
                                 <div class="text-center">
                                   
-                                  <form action="" method="post" enctype="multipart/form-data">
+                                  <form action="{% url 'accounts:profile_update' %}" method="post" enctype="multipart/form-data">
                                       {% csrf_token %}
                                       <!-- <div class="form-outline ">
                                           <label class="form-label" for="temp_img">Template Image:</label>
@@ -240,7 +584,7 @@
                                               <label for="name" class="form-label">Name:</label>
                                             </div>
                                             <div class="col-md-8" >
-                                              <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}">
+                                              <input type="text" class="form-control" id="Name" name="name" onkeypress="validateInput(event)" value="{{ user.name }}">
                                             </div>
                                           </div>  
                                         </div> 
@@ -263,7 +607,7 @@
                                               <label for="age" class="form-label">Age:</label>
                                             </div>
                                             <div class="col-md-8" >
-                                              <input type="text" class="form-control" id="age" name="age" value="{{ user.age }}">
+                                              <input type="tel" class="form-control" id="age" name="age" oninput="validateAge(this)" maxlength="2"  value="{{ user.age }}">
                                             </div>
                                           </div>  
                                         </div> 
@@ -275,7 +619,7 @@
                                               <label for="phone_number" class="form-label">Phone Number:</label>
                                             </div>
                                             <div class="col-md-8" >
-                                              <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ user.phone_number }}">
+                                              <input type="text" class="form-control" id="phoneNumber" name="phone_number" value="{{ user.phone_number }}" onblur="validatePhoneNumber()" minlength="10" maxlength="10">
                                             </div>
                                           </div>  
                                         </div> 
@@ -287,7 +631,7 @@
                                               <label for="email" class="form-label">Email:</label>
                                             </div>
                                             <div class="col-md-8" >
-                                              <input type="text" class="form-control" id="email" name="email" value="{{ user.email }}">
+                                              <input type="text" class="form-control" id="emailAddress" name="email" value="{{ user.email }}" onblur="validateEmail()">
                                             </div>
                                           </div>  
                                         </div> 
@@ -311,7 +655,7 @@
                                               <label for="place" class="form-label">place:</label>
                                             </div>
                                             <div class="col-md-8" >
-                                              <input type="text" class="form-control" id="place" name="place">
+                                              <input type="text" class="form-control" id="place" name="place" value="{{ user.place }}">
                                             </div>
                                           </div>  
                                         </div> 
@@ -322,7 +666,7 @@
                                               <label for="education" class="form-label">education:</label>
                                             </div>
                                             <div class="col-md-8" >
-                                              <input type="text" class="form-control" id="education" name="education">
+                                              <input type="text" class="form-control" id="education" name="education" value="{{ user.education }}">
                                             </div>
                                           </div>  
                                         </div> 
@@ -349,7 +693,7 @@
     
                   <div class="row gutters-sm">
 
-                    <div class="col-sm-6 mb-3">
+                    <!-- <div class="col-sm-6 mb-3">
                       <div class="card h-100">
                         <div class="card-body">
                           <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
@@ -375,101 +719,120 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div class="col-sm-6 mb-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                          <small>Web Design</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> -->
+                      {% for prop in proposals %}
+                        {% if request.user.username == prop.party_a %}
+                          {% if prop.accepte == False %}
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Proposal</i></h6>
+                                  <b>You Proposed </b><span> {{prop.party_b}}</span>
+                                  <div class=" mb-3" style="">
+                                    <p> {{prop.party_b}} Rejected You.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          {% elif prop.accepte == True %}
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Commited</i></h6>
+                                  <b>Your Committed With  </b><span>{% if request.user.username == prop.party_a %}{{prop.party_b}} {% else %} {{prop.party_a}} {% endif %}</span>
+                                  <div class=" mb-3" style="">
+                                    <small>Happy and Helthy relationship</small>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <small>Website Markup</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>One Page</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Mobile Template</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Backend API</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <div class="col-sm-6 mb-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                          <small>Web Design</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Website Markup</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>One Page</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Mobile Template</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Backend API</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-6 mb-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                          <small>Web Design</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Website Markup</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>One Page</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Mobile Template</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Backend API</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
+                          
+                          {% else %}
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Proposal</i></h6>
+                                  <b>You Proposed </b><span> {{prop.party_b}}</span>
+                                  <div class=" mb-3" style="">
+                                    <p> <i class="fa-regular fa-clock p-2" style="color: #656262;"></i>Waiting for approval.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          {% endif %}
+                        {% else %}
+                          {% if prop.accepte == True %}
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Commited</i></h6>
+                                  <b>Your Committed With  </b><span>{% if request.user.username == prop.party_a %}{{prop.party_b}} {% else %} {{prop.party_a}} {% endif %}</span>
+                                  <div class=" mb-3" style="">
+                                    <small>Happy and Helthy relationship</small>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          {% elif prop.accepte == False %}
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Proposal</i></h6>
+                                  <b>You Have a Proposal from </b><span>{{prop.party_a}}</span>
+                                  <div class=" mb-3" style="">
+                                    <p>You Rejected.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          {% else %}
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Proposal</i></h6>
+                                  <b>You Have a Proposal from </b><span>{{prop.party_a}}</span>
+                                  <div class=" mb-3" style="">
+                                    <small>If You Acceptes then Both Will flage as commited</small>
+                                  </div>
+                                  <div class="mt-3">
+                                    <a class="btn btn-primary" href="{% url 'lovers:accepte_proposal' prop.pk %}" type="submit">Accepte</a>
+                                    <a class="btn btn-danger"  href="{% url 'lovers:reject_proposal' prop.pk %}" type="submit">Cancel</a>
+                                  </div>  
+                                </div>
+                              </div>
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
                     </div>
                   </div>
-    
-    
-    
                 </div>
               </div>
-    
-            </div>
+        {% for msg in messages %}
+
+        <div id="message" style="position: fixed;bottom: 50px;right: 0;width: auto;">
+          <div class="alert  alert-dismissible " style="margin: 0 auto;background-color: #ffffff;border-color: #00000087;border-width: 2px;box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);">
+            <i class="fa-solid fa-circle-check" style="color: #05eb09;"></i>
+            <span style="color: #000000;font-size: 19px;padding-left: 10px;">{{ msg }}</span> 
+          </div>
         </div>
+        {% endfor %}
+        
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var alertBox = document.querySelector("#message");
+          
+                setTimeout(function () {
+                    alertBox.style.animation = "fadeOut 1.0s ease-out";
+                    setTimeout(function () {
+                        alertBox.style.display = "none";
+                    }, 500);
+                }, 7000);
+            });
+          </script>
+
 
 
         <script>
@@ -478,5 +841,93 @@
       var instances = M.Modal.init(elems, options);
     });
       </script>
+
+      <!-- username -->
+<script>
+  function validateInput(event) {
+    // Get the pressed key as a string
+    const keyPressed = String.fromCharCode(event.keyCode);
+  
+    // Define the allowed characters (A-Z, a-z, 0-9, and underscore)
+    const allowedCharacters = /^[A-Za-z0-9_]+$/;
+  
+    // Check if the pressed key is allowed
+    if (!allowedCharacters.test(keyPressed)) {
+      // Prevent the input if the key is not allowed
+      event.preventDefault();
+    }
+  }
+  </script>
+
+
+<!-- age -->
+<script>
+  function validateAge(input) {
+    // Remove non-digit characters from the input
+    input.value = input.value.replace(/\D/g, '');
+  
+    // Ensure the input length is not greater than 2
+    if (input.value.length > 2) {
+      input.value = input.value.slice(0, 2); // Keep only the first two digits
+    }
+  }
+  </script>
+
+
+<!-- name -->
+<script>
+  function validateInput(event) {
+    // Get the pressed key as a string
+    const keyPressed = String.fromCharCode(event.keyCode);
+  
+    // Define the allowed characters (A-Z and space)
+    const allowedCharacters = /^[a-zA-Z\s]+$/;
+  
+    // Check if the pressed key is allowed
+    if (!allowedCharacters.test(keyPressed)) {
+      // Prevent the input if the key is not allowed
+      event.preventDefault();
+    }
+  }
+  </script>
+
+
+<!-- phone number -->
+<script>
+  function validatePhoneNumber() {
+    const phoneNumberInput = document.getElementById('phoneNumber');
+    const phoneNumberValue = phoneNumberInput.value;
+  
+    // Remove non-digit characters from the input
+    const cleanedPhoneNumber = phoneNumberValue.replace(/\D/g, '');
+  
+    // Check if the cleaned phone number has at least 10 digits
+    if (cleanedPhoneNumber.length < 10) {
+      alert('Invalid phon number. Please enter a valid phone number.');
+      phoneNumberInput.value = ''; // Clear the input field if the email is invalid
+   }
+  }
+  </script>
+
+
+ <!-- email -->
+ <script>
+  function validateEmail() {
+    const emailInput = document.getElementById('emailAddress');
+    const emailValue = emailInput.value;
+  
+    // Define a regular expression for basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    // Check if the email format is valid
+    if (!emailRegex.test(emailValue)) {
+      alert('Invalid email address. Please enter a valid email.');
+      emailInput.value = ''; // Clear the input field if the email is invalid
+    }
+  }
+  </script>
+
+
+
 </body>
 </html>

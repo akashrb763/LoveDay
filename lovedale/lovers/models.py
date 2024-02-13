@@ -47,6 +47,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     registered_date = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(null=True, blank=True)
     terms_and_conditions = models.BooleanField(default=False,blank=True, null=True)
+    verify_paid=models.BooleanField(default=False)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -57,6 +58,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     work = models.CharField(max_length=255, blank=True)
     education = models.CharField(max_length=255, blank=True)
     place = models.CharField(max_length=255, blank=True)
+    
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name', 'phone_number', 'email']
@@ -92,3 +94,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             'granted to each of their groups.'
         ),
     )
+
+
+class UserPropose(models.Model):
+    party_a=models.CharField(max_length=150)
+    party_b=models.CharField(max_length=150)
+    propose_id=models.CharField(max_length=150, unique=True)
+    accepte=models.BooleanField(null=True)
+    propose_date=models.DateTimeField(default=timezone.now)
+    sing_1=models.ImageField(upload_to='sing_1', blank=True, null=True)
+    sing_2=models.ImageField(upload_to='sing_2', blank=True, null=True)
+    re_props=models.IntegerField(blank=True, null=True,default=0)
+    
+    

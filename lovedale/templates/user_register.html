@@ -103,6 +103,13 @@ rel="stylesheet"
 .navbar-light .navbar-nav .nav-link {
   color: #000;
 }
+
+/* for notification */
+@keyframes fadeOut {
+        from { opacity: 3; }
+        to { opacity: -1; }
+        }
+
     </style>
 </head>
 <body>
@@ -159,7 +166,7 @@ rel="stylesheet"
     <div class="container mt-4 mb-0">
       <div class="row">
         <div class="col-1">
-          <i class="fa-solid fa-circle-arrow-left" style="font-size: 30px;"></i>
+          <a href="/"><i class="fa-solid fa-circle-arrow-left" style="font-size: 30px;"></i></a>
         </div>
         
       </div>
@@ -338,7 +345,7 @@ rel="stylesheet"
   
     
     
-{{user.username}}
+
 
     {% for msg in messages %}
 

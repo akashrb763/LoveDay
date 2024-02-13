@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <title>Relationship Agreement</title>
+
+    <style>
+        body {
+            font-family:  sans-serif;
+            background-image: url(../static/assets/img/frame_bg.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+
+           
+        }
+        h1 {
+            text-align: center;
+            font-size: 25px;
+        }
+        .agreement-section {
+            margin-bottom: 40px;
+            
+        }
+        .agreement-section h2 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .agreement-section ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+        .signature {
+            margin-top: 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body >
+    <div class="container " style="height: 300px;margin-bottom: 150px;">
+        <img src="../static/assets/img/agreement_bg2.png" style="height: 380px;width: 650px;">
+        </div>
+
+
+
+
+    <h2>This Love Agreement ("Agreement") is entered into on {{ date }}, by and between {{boy_name}} and {{girl_name}}.</h2>
+    <div class="agreement-section" style="margin-top: 100px;">
+        <h2>1. Purpose:</h2>
+        <p>The purpose of this Agreement is to establish the terms and conditions under which the Girl and the Boy agree to conduct their romantic relationship.</p>
+    </div>
+    <div class="agreement-section">
+        <h2>2. Commitment:</h2>
+        <ol>
+            <li>Both parties hereby acknowledge their commitment to each other, with the intention of fostering a healthy, loving, and supportive relationship.</li>
+        </ol>
+    </div>
+
+    <div class="agreement-section">
+        <h2>3. Communication:</h2>
+        <ol>
+            <li> Both parties agree to communicate openly and honestly with each other.</li>
+            <li>
+                They will actively listen to each other's concerns, thoughts, and feelings without judgment.
+            </li>
+        </ol>
+    </div>
+
+    <div class="agreement-section">
+        <h2>4. Respect:</h2>
+        <ol>
+            <li>
+                The Girl and the Boy agree to treat each other with respect and kindness at all times.
+            </li>
+            <li>
+                They will refrain from engaging in any behavior that may be harmful or disrespectful to the other party.
+            </li>
+        </ol>
+    </div>
+
+    <div class="agreement-section">
+        <h2>5. Trust:</h2>
+        <ol>
+            <li>
+                Both parties acknowledge the importance of trust in their relationship.
+            </li>
+            <li>
+                They agree to be faithful and loyal to each other.
+            </li>
+        </ol>
+    </div>
+
+    
+
+    <div class="agreement-section">
+        <h2>7. Boundaries:</h2>
+        <ol>
+            <li>
+                Both parties have the right to set boundaries in the relationship.            </li>
+            <li>
+                They agree to respect each other's boundaries and communicate them openly.            </li>
+        </ol>
+    </div>
+
+    <div class="agreement-section">
+        <h2>8. Resolution of Conflicts:</h2>
+        <ol>
+            <li>
+                In the event of a disagreement or conflict, both parties agree to resolve it peacefully and respectfully.            </li>
+            <li>
+                They will seek to understand each other's perspective and work towards finding a mutually acceptable solution.            </li>
+        </ol>
+    </div>
+
+
+    <div class="agreement-section">
+        <h2>9. Privacy:</h2>
+        <ol>
+            <li>
+                The Girl and the Boy acknowledge the importance of privacy in their relationship.            </li>
+            <li>
+                They agree to respect each other's privacy and confidentiality.            </li>
+        </ol>
+    </div>
+
+    <div class="agreement-section">
+        <h2>10. Duration:</h2>
+        <ol>
+            <li>
+                This Agreement shall remain in effect for the duration of the relationship between the Girl and the Boy, unless terminated by mutual agreement or in accordance with applicable law.            </li>
+            
+        </ol>
+    </div>
+
+    <div class="agreement-section">
+        <h2>11. Amendment:</h2>
+        <ol>
+            <li>
+                This Agreement may be amended or modified at any time by mutual written consent of both parties.            
+            </li>
+            
+        </ol>
+    </div>
+
+
+    
+    <!-- Other sections of the agreement go here -->
+
+    <div class="signature">
+        <p><strong>IN WITNESS WHEREOF, the parties have executed this Agreement as of the date first above written.</strong></p>
+        <!-- <div class="col-md-8 col-lg-8" > -->
+            <div class="container" style="text-align:center;">
+        
+            <div class="row" style="align-items: center;">
+            
+            <div class=" col-md-4" style="width: 280px;">
+                <p style="max-width: 230px;">{{girl_name}} </p> 
+
+            
+                
+                <img src="{{ u_props.sing_1.url }}" style="width: 230px;">
+
+            </div>
+
+
+
+
+            <div class=" col-md-4" style="width: 280px;">
+                <p style="width: 230px;">{{boy_name}} </p> 
+
+            
+                
+                <img src="{{ u_props.sing_2.url }}" style="width: 230px;">  
+
+            </div>
+        </div>
+    </div>
+</div>
+    
+</div>  
+</body>
+</html>
